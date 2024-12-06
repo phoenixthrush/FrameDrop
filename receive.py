@@ -6,9 +6,6 @@ BIT_LENGHT = 24  # TODO - fetch this on calibrate
 camera = cv2.VideoCapture(0)
 
 try:
-    # contains "lol"
-    # binary_array = [0, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0]
-
     binary_array = []
 
     for i in range(BIT_LENGHT):
@@ -27,11 +24,20 @@ try:
             binary_array.append(binary_value)
 
     binary_string = ''.join(map(str, binary_array))
-    decimal_value = int(binary_string, 2)
-    byte_value = decimal_value.to_bytes(len(binary_string) // 8, 'big')
-    utf8_text = byte_value.decode('utf-8', errors='ignore')
 
-    print(utf8_text)
+    while len(binary_string) % 8 != 0:
+        binary_string = '0' + binary_string
+
+    decimal_value = int(binary_string, 2)
+    byte_count = (decimal_value.bit_length() + 7) // 8
+    byte_value = decimal_value.to_bytes(byte_count, 'big')
+
+    print(f"Binary String: {binary_string}")
+    print(f"Decimal Value: {decimal_value}")
+    print(f"Byte Value: {byte_value}")
+
+    utf8_text = byte_value.decode('utf-8', errors='ignore')
+    print(f"Decoded Text: {utf8_text}")
 except KeyboardInterrupt:
     pass
 finally:

@@ -1,3 +1,4 @@
+import time
 import tkinter as tk
 
 
@@ -31,5 +32,7 @@ def display_binary_string(binary_string):
 
 x = "lol"
 binary_string = ''.join(f"0{format(ord(char), 'b')}" for char in x)
+print(binary_string)
 
+time.sleep(1.5)
 display_binary_string(binary_string)
