@@ -1,9 +1,12 @@
 import time
 import tkinter as tk
 
+FREQ = 2
+
 
 def display_binary_string(binary_string):
     def update_color():
+        print(time.time())
         if index[0] < len(binary_string):
             bit = binary_string[index[0]]
 
@@ -15,7 +18,12 @@ def display_binary_string(binary_string):
                 root.configure(bg="white")
 
             index[0] += 1
-            root.after(500, update_color)
+
+            now = time.time()
+            next_tick = (int(now // FREQ) + 1) * FREQ
+            delay = max(0, int((next_tick - now) * 1000))
+            root.after(delay, update_color)
+
         else:
             root.destroy()
 
@@ -30,9 +38,17 @@ def display_binary_string(binary_string):
     root.mainloop()
 
 
-x = "lol"
-binary_string = ''.join(f"0{format(ord(char), 'b')}" for char in x)
-print(binary_string)
+string = "lol"
+string_bin = ''.join(f"0{format(ord(char), 'b')}" for char in string)
 
-time.sleep(1.5)
-display_binary_string(binary_string)
+length_bin = bin(len(string)).replace("0b", "").zfill(4)
+
+wow = length_bin + string_bin
+
+if time.localtime().tm_sec % 10 > 7:
+    time.sleep(3)
+
+while time.localtime().tm_sec % 10 != 0:
+    time.sleep(0.1)
+
+display_binary_string(wow)
