@@ -14,7 +14,7 @@ def display_qr_code(data):
     """
 
     qr = qrcode.QRCode(
-        version=20,
+        version=25,
         error_correction=qrcode.constants.ERROR_CORRECT_L,
         box_size=10,
         border=1,
@@ -30,15 +30,17 @@ def display_qr_code(data):
 
 
 def send_data():
-    with open('data/data.txt', 'r') as file:
+    FILE = "IMG_1077.jpeg"
+
+    with open(f'data/{FILE}', 'r') as file:
         data = file.read().strip()
 
     DATA_SIZE = len(data)
-    CHUNK_SIZE = 1024
+    CHUNK_SIZE = 2048
     TIME_SLEEP = 3
 
     METADATA = json.dumps({
-        "filename": "data.txt",
+        "filename": FILE,
         "data_size": DATA_SIZE,
         "chunk_size": CHUNK_SIZE,
         "chunk_count": (DATA_SIZE + CHUNK_SIZE - 1) // CHUNK_SIZE,
