@@ -1,14 +1,11 @@
-import qrcode
+from pyzbar.pyzbar import decode
+from PIL import Image
+from cv2 import VideoCapture
 
-qr = qrcode.QRCode(
-    version=40,
-    error_correction=qrcode.constants.ERROR_CORRECT_L,
-    box_size=10,
-    border=1,
-)
 
-qr.add_data('Aylin Bayram')
-qr.make(fit=True)
+cam = VideoCapture(0)
+_, image = cam.read() 
 
-img = qr.make_image(fill_color="black", back_color="white")
-img.show()
+decoded_objects = decode(image)
+for obj in decoded_objects:
+    print(f"Data: {obj.data.decode('utf-8')}")
