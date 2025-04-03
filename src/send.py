@@ -4,7 +4,7 @@ import qrcode
 with open('data/data.txt', 'r') as file:
     data = file.read().strip()
 
-for char in data:
+def display_qr_code(char):
     print(char, end="")
 
     qr = qrcode.QRCode(
@@ -20,4 +20,10 @@ for char in data:
     img = qr.make_image(fill_color="black", back_color="white")
     img.show()
 
-    time.sleep(2)
+    time.sleep(3)
+
+# Send metadata
+display_qr_code(len(data))
+
+for char in data:
+    display_qr_code(char)
