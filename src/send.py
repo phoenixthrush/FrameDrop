@@ -4,12 +4,12 @@ import qrcode
 with open('data/data.txt', 'r') as file:
     data = file.read().strip()
 
-print(data)
-
 for char in data:
+    print(char, end="")
+
     qr = qrcode.QRCode(
-        version=40,
-        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        version=10,
+        error_correction=qrcode.constants.ERROR_CORRECT_H,
         box_size=10,
         border=1,
     )
@@ -20,4 +20,4 @@ for char in data:
     img = qr.make_image(fill_color="black", back_color="white")
     img.show()
 
-    time.sleep(1)
+    time.sleep(2)
