@@ -5,9 +5,17 @@ import qrcode
 
 
 def display_qr_code(data):
+    """
+    QR Code Error Correction Levels:
+        - ERROR_CORRECT_L: About 07% or less
+        - ERROR_CORRECT_M: About 15% or less (default)
+        - ERROR_CORRECT_Q: About 25% or less
+        - ERROR_CORRECT_H: About 30% or less
+    """
+
     qr = qrcode.QRCode(
-        version=10,
-        error_correction=qrcode.constants.ERROR_CORRECT_H,
+        version=20,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
         box_size=10,
         border=1,
     )

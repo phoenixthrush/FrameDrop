@@ -24,7 +24,7 @@ def receive_data():
 
     print(json.dumps(json.loads(METADATA), indent=4))
 
-    FILE_NAME = METADATA_JSON["file_name"]
+    FILE_NAME = METADATA_JSON["filename"]
     # DATA_SIZE = METADATA_JSON["data_size"]
     # CHUNK_SIZE = METADATA_JSON["chunk_size"]
     CHUNK_COUNT = METADATA_JSON["chunk_count"]
