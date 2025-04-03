@@ -4,7 +4,6 @@ import json
 
 from cv2 import VideoCapture
 from pyzbar.pyzbar import decode
-import zlib
 
 cam = VideoCapture(0)
 
@@ -35,9 +34,10 @@ def receive_data():
     time.sleep(TIME_SEEP)
 
     with open(FILE_NAME, 'wb') as file:
-        for _ in range(CHUNK_COUNT):
+        for i in range(CHUNK_COUNT):
+            print(f"Progress: {i}/{CHUNK_COUNT}")
             chunk_data = scan()
-            decoded_data = zlib.decompress(base64.b64decode(chunk_data))
+            decoded_data = base64.b64decode(chunk_data)
             file.write(decoded_data)
             time.sleep(TIME_SEEP)
 
@@ -45,4 +45,7 @@ def receive_data():
 
 
 if __name__ == '__main__':
-    receive_data()
+    try:
+        receive_data()
+    except KeyboardInterrupt:
+        pass
