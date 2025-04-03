@@ -3,8 +3,6 @@ from cv2 import VideoCapture
 import time
 import sys
 
-CHUNK_COUNT = 5
-
 cam = VideoCapture(0)
 
 
@@ -17,7 +15,12 @@ def scan():
         for obj in decoded_objects:
             return (obj.data.decode('utf-8'))
 
-    return ("No QR Code found\n")
+    return ("?")
+
+
+CHUNK_COUNT = int(scan())
+print(CHUNK_COUNT)
+time.sleep(3)
 
 
 for i in range(CHUNK_COUNT):
@@ -28,4 +31,5 @@ for i in range(CHUNK_COUNT):
 
     time.sleep(3)
 
+print()
 cam.release()
