@@ -43,3 +43,7 @@ def send_data():
     for i in range(0, len(data), CHUNK_SIZE):
         chunk = data[i:i+CHUNK_SIZE]
         display_qr_code(chunk)
+
+
+if __name__ == "__main__":
+    send_data()
