@@ -1,1 +1,3 @@
-qrcode
+qrcode[pil]
+pyzbar # brew install zbar
+opencv-python
