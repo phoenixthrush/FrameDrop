@@ -1,3 +1,4 @@
+import base64
 import time
 import json
 
@@ -35,7 +36,8 @@ def receive_data():
     with open(FILE_NAME, 'wb') as file:
         for _ in range(CHUNK_COUNT):
             chunk_data = scan()
-            file.write(chunk_data.encode('utf-8'))
+            decoded_data = base64.b64decode(chunk_data)
+            file.write(decoded_data)
             time.sleep(TIME_SEEP)
 
     cam.release()

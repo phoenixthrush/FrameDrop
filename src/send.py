@@ -1,3 +1,4 @@
+import base64
 import time
 import json
 
@@ -32,8 +33,8 @@ def display_qr_code(data):
 def send_data():
     FILE = "IMG_1077.jpeg"
 
-    with open(f'data/{FILE}', 'r') as file:
-        data = file.read().strip()
+    with open(f'data/{FILE}', 'rb') as file:
+        data = base64.b64encode(file.read()).decode('utf-8')
 
     DATA_SIZE = len(data)
     CHUNK_SIZE = 2048
