@@ -1,12 +1,10 @@
 import time
+import json
+
 import qrcode
 
-with open('data/data.txt', 'r') as file:
-    data = file.read().strip()
 
-def display_qr_code(char):
-    print(char, end="")
-
+def display_qr_code(data):
     qr = qrcode.QRCode(
         version=10,
         error_correction=qrcode.constants.ERROR_CORRECT_H,
@@ -14,7 +12,7 @@ def display_qr_code(char):
         border=1,
     )
 
-    qr.add_data(char)
+    qr.add_data(data)
     qr.make(fit=True)
 
     img = qr.make_image(fill_color="black", back_color="white")
@@ -22,8 +20,26 @@ def display_qr_code(char):
 
     time.sleep(3)
 
-# Send metadata
-display_qr_code(len(data))
 
-for char in data:
-    display_qr_code(char)
+def send_data():
+    with open('data/data.txt', 'r') as file:
+        data = file.read().strip()
+
+    DATA_SIZE = len(data)
+    CHUNK_SIZE = 1024
+    TIME_SLEEP = 3
+
+    METADATA = json.dumps({
+        "filename": "data.txt",
+        "data_size": DATA_SIZE,
+        "chunk_size": CHUNK_SIZE,
+        "chunk_count": (DATA_SIZE + CHUNK_SIZE - 1) // CHUNK_SIZE,
+        "time_sleep": TIME_SLEEP
+    })
+
+    print(METADATA)
+    display_qr_code(METADATA)
+
+    for i in range(0, len(data), CHUNK_SIZE):
+        chunk = data[i:i+CHUNK_SIZE]
+        display_qr_code(chunk)
