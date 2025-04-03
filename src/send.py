@@ -11,4 +11,4 @@ qr.add_data('Aylin Bayram')
 qr.make(fit=True)
 
 img = qr.make_image(fill_color="black", back_color="white")
-img.save("qr_code.png")
+img.show()
