@@ -3,6 +3,7 @@ import time
 import json
 
 import qrcode
+import zlib
 
 
 def display_qr_code(data):
@@ -35,6 +36,7 @@ def send_data():
 
     with open(f'data/{FILE}', 'rb') as file:
         data = base64.b64encode(file.read()).decode('utf-8')
+        data = zlib.compress(data.encode('utf-8'))
 
     DATA_SIZE = len(data)
     CHUNK_SIZE = 2048
