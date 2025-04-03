@@ -19,16 +19,16 @@ def scan():
 
 
 def receive_data():
-    metadata_json = scan()
-    metadata = json.loads(metadata_json)
+    METADATA = scan()
+    METADATA_JSON = json.loads(METADATA)
 
-    print(metadata)
+    print(json.dumps(json.loads(METADATA), indent=4))
 
-    FILE_NAME = metadata["file_name"]
-    # DATA_SIZE = metadata["data_size"]
-    # CHUNK_SIZE = metadata["chunk_size"]
-    CHUNK_COUNT = metadata["chunk_count"]
-    TIME_SEEP = metadata["time_sleep"]
+    FILE_NAME = METADATA_JSON["file_name"]
+    # DATA_SIZE = METADATA_JSON["data_size"]
+    # CHUNK_SIZE = METADATA_JSON["chunk_size"]
+    CHUNK_COUNT = METADATA_JSON["chunk_count"]
+    TIME_SEEP = METADATA_JSON["time_sleep"]
 
     time.sleep(TIME_SEEP)
 

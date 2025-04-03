@@ -37,7 +37,7 @@ def send_data():
         "time_sleep": TIME_SLEEP
     })
 
-    print(METADATA)
+    print(json.dumps(json.loads(METADATA), indent=4))
     display_qr_code(METADATA)
 
     for i in range(0, len(data), CHUNK_SIZE):
